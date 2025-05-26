@@ -8,6 +8,9 @@ from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder,StandardScaler
+from sklearn.preprocessing import FunctionTransformer
+log_transformer = FunctionTransformer(np.log1p, validate=True)
+
 
 from src.exception import CustomException
 from src.logger import logging
@@ -33,7 +36,8 @@ class DataTransformation:
             num_pipeline = Pipeline(
                 steps=[
                     ("imputer",SimpleImputer(strategy="median")),
-                    ("scaler",StandardScaler())
+                    ("log", log_transformer),
+                    ("scaler", StandardScaler())
                 ]
             )
 
@@ -86,6 +90,12 @@ class DataTransformation:
             save_object (
                 file_path = self.data_transformation_config.preprocessor_obj_file_path,
                 obj = preprocessing_obj
+            )
+
+            return(
+                train_arr,
+                test_arr,
+                self.data_transformation_config.preprocessor_obj_file_path
             )
         except Exception as e:
             raise CustomException(e,sys)

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cryptocurrency Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+    }
+    form {
+      max-width: 400px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 2px 2px 12px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 15px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Cryptocurrency Data Form</h2>
+
+<form action="{{url_for('predict_datapoint')}}" method="post">
+  <label for="coin">Coin</label>
+  <input type="text" id="coin" name="coin" required>
+
+  <label for="price">Price (USD)</label>
+  <input type="number" id="price" name="price" step="0.0001" required>
+
+  <label for="1h">1h Change (%)</label>
+  <input type="number" id="1h" name="1h" step="0.0001" required>
+
+  <label for="24h">24h Change (%)</label>
+  <input type="number" id="24h" name="24h" step="0.0001" required>
+
+  <label for="7d">7d Change (%)</label>
+  <input type="number" id="7d" name="7d" step="0.0001" required>
+
+  <label for="24h_volume">24h Volume (USD)</label>
+  <input type="number" id="24h_volume" name="24h_volume" >
+
+  <button type="submit">Submit</button>
+</form>
+<h2>
+    The prediction Market capitalization is: {{results}} $
+</h2>
+</body>
+</html>
